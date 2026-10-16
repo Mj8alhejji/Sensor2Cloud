@@ -1,0 +1,1 @@
+this folder contains all diagrams, reports, tables, figures, slide, report guidelines, etc.
