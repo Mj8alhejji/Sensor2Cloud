@@ -5,7 +5,11 @@ All readings and connection states are simulated. GPIO pins are not assigned yet
 
 ## Run
 
-Open `index.html` in a browser. No installation is needed.
+1. On GitHub, open the repository file list on the `dashboard-prototype` branch.
+2. Click **Code > Download ZIP**, then extract the ZIP.
+3. Open the extracted folder, open `Dashboard`, and double-click `index.html`.
+
+Opening `index.html` on GitHub shows its code. Run the downloaded files together on your computer.
 
 ## Current features
 
