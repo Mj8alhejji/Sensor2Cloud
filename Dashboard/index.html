@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensor2Cloud Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+  <header>
+    <p>Cloud Computing Project</p>
+    <h1>Sensor2Cloud</h1>
+    <p>Two ESP32-S3 boards. One dashboard.</p>
+  </header>
+
+  <main>
+    <section class="notice" aria-labelledby="mode-heading">
+      <h2 id="mode-heading">Simulation mode</h2>
+      <p id="mode-description">All readings and connection states are simulated. No physical devices are connected to this dashboard.</p>
+      <p>Demo layout: both boards show all proposed sensor types. Actual sensor distribution and GPIO assignments are not finalized. Light and potentiometer percentages are illustrative, not calibrated measurements.</p>
+    </section>
+
+    <section aria-labelledby="overview-heading">
+      <h2 id="overview-heading">Dashboard overview</h2>
+      <p id="device-summary">Loading two simulated devices...</p>
+      <p id="refresh-status">Automatic updates every 5 seconds while this page is open.</p>
+      <button id="refresh-button" type="button">Refresh now</button>
+      <button id="pause-button" type="button">Pause automatic updates</button>
+      <p id="message" role="status" aria-live="polite"></p>
+      <label>Show device group:
+        <select id="group-filter"><option value="">All groups</option></select>
+      </label>
+    </section>
+
+    <section aria-labelledby="devices-heading">
+      <h2 id="devices-heading">Devices</h2>
+      <div id="device-list"></div>
+    </section>
+
+    <section aria-labelledby="history-heading">
+      <h2 id="history-heading">Reading history</h2>
+      <p>The latest 100 sensor readings are kept for this page session. Timestamps use your browser's local time. Reloading the page clears history.</p>
+      <label>Show history for:
+        <select id="history-filter"><option value="">All devices</option></select>
+      </label>
+      <button id="clear-history-button" type="button">Clear history</button>
+      <div class="table-container">
+        <table>
+          <caption>Sensor readings, newest first</caption>
+          <thead><tr><th scope="col">Timestamp</th><th scope="col">Device</th><th scope="col">Sensor</th><th scope="col">Value</th><th scope="col">Source</th></tr></thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="architecture-heading">
+      <h2 id="architecture-heading">Planned cloud architecture</h2>
+      <p>ESP32-S3 &rarr; Wi-Fi &rarr; MQTT Broker &rarr; Backend &rarr; Database &rarr; Web Dashboard</p>
+      <p>Planned backend: Python or Node.js. Planned database: SQL or SQLite. Firmware interfaces: Analog, PWM, I2C, SPI, and UART. The current sensor demo uses Analog, I2C, and SPI; PWM and UART remain firmware capabilities.</p>
+    </section>
+  </main>
+
+  <template id="device-template">
+    <section class="device-card">
+      <h3 class="device-name"></h3>
+      <p class="device-info"></p>
+      <p class="connection-status"></p>
+      <p class="last-seen"></p>
+      <div class="table-container">
+        <table>
+          <caption class="sensor-caption"></caption>
+          <thead><tr><th scope="col">Sensor</th><th scope="col">Interface</th><th scope="col">GPIO configuration</th><th scope="col">Value</th><th scope="col">Reading time</th></tr></thead>
+          <tbody class="sensor-body"></tbody>
+        </table>
+      </div>
+      <form class="device-form">
+        <fieldset>
+          <legend>Device name and group (saved in this browser)</legend>
+          <label>Device name <input class="name-input" type="text" required maxlength="60"></label>
+          <label>Group <input class="group-input" type="text" maxlength="60" placeholder="e.g. Lab A"></label>
+          <button type="submit">Save details</button>
+        </fieldset>
+      </form>
+      <button class="connection-button" type="button">Simulate offline</button>
+    </section>
+  </template>
+</body>
+</html>
