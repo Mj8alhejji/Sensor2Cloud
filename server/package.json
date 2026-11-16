@@ -1,0 +1,19 @@
+{
+  "name": "sensor2cloud-server",
+  "version": "0.1.0",
+  "description": "sensor2cloud core backend (test version): receives cloud.print() batches from ESP32 nodes",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test:send": "node test/send-batch.js",
+    "test:hw": "node test/check-hwtest.js",
+    "test:fake-device": "node test/fake-hwtest-device.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.2.0",
+    "express": "^4.21.2"
+  }
+}
